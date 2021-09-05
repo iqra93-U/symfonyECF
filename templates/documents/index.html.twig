@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {% if  'ROLE_COMM' not in app.user.roles %}
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active"  href="{{ path('candidat_info') }}">Profile</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('competence_info') }}">Competence</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=" {{ path('experience') }} ">Experience</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=" {{ path('documents') }} ">Documents</a>
+        </li>
+    </ul>
+
+    {% endif %}
+    {% if 'ROLE_COMM' in app.user.roles %}
+        <a href="{{ path('commercial') }}"> Back to main page</a>
+
+    {% endif %}
+    <a href="{{ path('app_logout') }}" type="button" class="btn btn-dark">logOut</a>
+
+{{ form(docForm) }}
+
+    {% if is_granted('ROLE_COLAB') %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th> Name </th>
+                <th> File Description </th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+
+            {% for document in app.user.doc %}
+                <tr>
+                    <td> {{ document.name }}</td>
+                    <td> {{ document.fileDescription }}</td>
+                    <td>
+                        <a href="#">
+                            Modify
+                        </a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+
+
+            </tbody>
+
+        </table>
+
+    {% endif %}
+{% endblock %}

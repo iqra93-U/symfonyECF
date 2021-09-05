@@ -1,0 +1,61 @@
+{% extends 'users.html.twig' %}
+{% block body %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active"  href="{{ path('candidat_info') }}">Profile</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('competence_info') }}">Competence</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=" {{ path('experience') }} ">Experience</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=" {{ path('documents') }} ">Documents</a>
+        </li>
+    </ul>
+
+    <div>
+    <p>
+    profile of {{app.user.firstName   }}
+    </p>
+    </div>
+
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-secondary" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <a href="{{ path('app_logout') }}" type="button" class="btn btn-dark">logOut</a>
+
+{% if is_granted('ROLE_COLAB') %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th> first_name </th>
+            <th> last_name </th>
+            <th> address </th>
+            <th> disponibility </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+
+            <td> {{ app.user.firstName }}</td>
+            <td> {{ app.user.lastName }}</td>
+            <td> {{ app.user.address }}</td>
+            <td> {{ app.user.disponibility }}</td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+    <a href="{{ path('candidat_modify') }}"type="button" class="btn btn-info">Modify</a>
+
+    {% endif %}
+{% endblock %}

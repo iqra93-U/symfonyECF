@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Competence Edit Form!{% endblock %}
+
+{% block body %}
+
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active"  href="{{ path('candidat_info') }}">Profile</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('competence_info') }}">Competence</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=" {{ path('experience') }} ">Experience</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=" {{ path('documents') }} ">Documents</a>
+        </li>
+    </ul>
+
+    <a href="{{ path('app_logout') }}" type="button" class="btn btn-dark">logOut</a>
+
+
+    {{ form(competenceEditForm) }}
+
+
+{% endblock %}

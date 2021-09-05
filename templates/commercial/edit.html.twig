@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+     <a href="{{ path('commercial') }}"> Back to main page</a>
+
+
+
+    <div class="row">
+        <div class="col_12">
+            {{ form_row(edit_form.firstName) }}
+        </div>
+        <div class="col_12">
+            {{ form_row(edit_form.lastName) }}
+        </div>
+{#        <div class="col_12">#}
+{#            {{ form_row(edit_form.address) }}#}
+{#        </div>#}
+
+        <div class="col_12">
+            {{ form_row(edit_form.disponibility) }}
+        </div>
+    </div>
+    {{ form_end(edit_form) }}
+
+{% endblock %}

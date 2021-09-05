@@ -1,0 +1,43 @@
+{% extends 'users.html.twig' %}
+
+
+{% block body %}
+
+    <h1> Users </h1>
+
+    <a href="{{ path('app_logout') }}" type="button" class="btn btn-dark">logOut</a>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th> first_name </th>
+        <th> last_name </th>
+        <th> address </th>
+        <th> disponibility </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {%  for candidate in users %}
+    <tr>
+
+        <td> {{ candidate.firstName }}</td>
+        <td> {{ candidate.lastName }}</td>
+        <td> {{ candidate.address }}</td>
+        <td> {{ candidate.disponibility }}</td>
+        <td> <a href="{{ path('commercial_modification', {"id":candidate.id})  }}" type="button" class="btn btn-info">Modify</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+    <h1> Documents </h1>
+<a href="{{ path('commercial_doc') }}" > Add Document </a>
+
+
+    <h1> Experience </h1>
+
+    <a href="{{ path('commercial_experience') }}" > Add Document </a>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExperienceController!{% endblock %}
+
+{% block body %}
+    {% if  'ROLE_COMM' not in app.user.roles %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active"  href="{{ path('candidat_info') }}">Profile</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('competence_info') }}">Competence</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=" {{ path('experience') }} ">Experience</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href=" {{ path('documents') }} ">Documents</a>
+        </li>
+    </ul>
+{% endif %}
+
+    {% if 'ROLE_COMM' in app.user.roles %}
+        <a href="commercial"> Back to main page</a>
+
+    {% endif %}
+    <a href="{{ path('app_logout') }}" type="button" class="btn btn-dark">logOut</a>
+
+
+        <div class="col-md-6">
+            {{ form(experienceForm) }}
+
+        </div>
+    {% if is_granted('ROLE_COLAB') %}
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th> entreprise </th>
+            <th> start_date </th>
+            <th> end_date </th>
+            <th> details </th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for experience in app.user.experience %}
+            <tr>
+                <td> {{ experience.entreprise }}</td>
+                <td> {{ experience.startDate|date("d-m-Y") }}</td>
+                <td> {{ experience.endDate|date("d-m-Y") }}</td>
+                <td> {{ experience.details }}</td>
+                <td>
+                    <a href="{{ path("experience_modification", { id : experience.id}) }}">
+                        Modify
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+
+
+        </tbody>
+
+    </table>
+
+    {% endif %}
+{% endblock %}
