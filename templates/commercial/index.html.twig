@@ -38,6 +38,39 @@
 
     <h1> Experience </h1>
 
-    <a href="{{ path('commercial_experience') }}" > Add Document </a>
+    <a href="{{ path('commercial_experience') }}" > Add experience </a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th> entreprise </th>
+            <th> start_date </th>
+            <th> end_date </th>
+            <th> details </th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for experience in experiences %}
+            <tr>
+                <td> {{ experience.entreprise }}</td>
+                <td> {{ experience.startDate|date("d-m-Y") }}</td>
+                <td> {{ experience.endDate|date("d-m-Y") }}</td>
+                <td> {{ experience.details }}</td>
+                <td>
+                    <a href="{{ path("experience_modification", { id : experience.id}) }}">
+                        Modify
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+
+
+        </tbody>
+
+    </table>
+
+
 
 {% endblock %}

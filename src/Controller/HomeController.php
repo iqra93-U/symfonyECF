@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Documents;
+use App\Entity\Experiences;
 use App\Entity\User;
 use App\Form\DocType;
 use App\Form\UserType;
@@ -90,10 +91,13 @@ class HomeController extends AbstractController
      */
             public function commercial(EntityManagerInterface $entityManager):Response{
                 $candidate = $this->entityManager->getRepository(User::class)->findAll();
+                $experience = $this->entityManager->getRepository(Experiences::class)->findAll();
                 return $this->render('commercial/index.html.twig', [
                     'users' => $candidate,
+                    'experiences' => $experience
                 ]);
             }
+
 
     /**
      * @Route("/commercial/modification/{id}", name="commercial_modification")
@@ -129,7 +133,6 @@ class HomeController extends AbstractController
     public function comExp(): Response{
         return $this->redirectToRoute('experience');
     }
-
 
 
 
