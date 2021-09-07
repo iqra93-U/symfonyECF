@@ -94,9 +94,43 @@ class HomeController extends AbstractController
                 $experience = $this->entityManager->getRepository(Experiences::class)->findAll();
                 return $this->render('commercial/index.html.twig', [
                     'users' => $candidate,
-                    'experiences' => $experience
+                    'experiences' => $experience,
+                    
                 ]);
             }
+            public function search(EntityManagerInterface $entityManager):Response{
+           
+                $search = new User();
+                $name= $search->getFirstName();
+                $searchuser = $this->entityManager->getRepository(User::class)->findBy(['firstName' =>$name]);
+                return $this->render('commercial/index.html.twig', [
+                      'search'=> $searchuser
+                ]);
+            }
+            // public function search(Request $request):Response{
+
+            //     $search = new User();
+            //     $form = $this->createForm(User::class,$search );
+            //     $form->handleRequest($request);
+
+            //     $users =[];
+            //     if ($form->isSubmitted() && $form->isValid()){
+            //         $name= $search->getFirstName();
+            //         if($name!="")
+            //         $users = $this->getDoctrine()->getRepository(User::class)->findBy(['firstName' =>$name]);
+            //         else
+            //             $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+            //     }
+            //     return $this->render('commercial/index.html.twig', [
+            //         'form' => $form->createView(),
+            //         'users' => $users,
+                   
+                  
+                   
+
+            //     ]);
+            // }
 
 
     /**
