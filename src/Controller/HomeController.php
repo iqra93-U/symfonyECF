@@ -127,12 +127,13 @@ class HomeController extends AbstractController
 
                 if($query){
                     $user = $userRepository->find($query);
+                    // $user = $this->entityManager->getRepository(User::class)->find($query);
                 }
-            
+                dump($user); die;
                 return $this->render('commercial/result.html.twig', [
                     'user'=> $user
               ]);
-                // dump($request->request->get('form')['query']); die;
+       
             }
 
 
