@@ -8,11 +8,15 @@ use App\Entity\Experiences;
 use App\Entity\User;
 use App\Form\DocType;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\BrowserKit\Request as BrowserKitRequest;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -98,15 +102,51 @@ class HomeController extends AbstractController
                     
                 ]);
             }
-            public function search(EntityManagerInterface $entityManager):Response{
-           
-                $search = new User();
-                $name= $search->getFirstName();
-                $searchuser = $this->entityManager->getRepository(User::class)->findBy(['firstName' =>$name]);
-                return $this->render('commercial/index.html.twig', [
-                      'search'=> $searchuser
-                ]);
+                public function search(EntityManagerInterface $entityManager):Response{
+
+                $form = $this->createFormBuilder()
+                ->setAction($this->generateUrl('commercial_searchhandle'))
+                    ->add('query', TextType::class)
+                    ->add('search', SubmitType::class, [
+                        'attr' => [
+                            'class'=> 'btn btn-primary'
+                        ]
+                    ])
+                    ->getForm();
+                    return $this->render('commercial/search.html.twig', [
+                       'search'=> $form->createView()
+                 ]);
+
             }
+
+    /**
+     * @Route("/commercial/searchhandle", name="commercial_searchhandle")
+     */
+            public function searchHandle(Request $request, UserRepository $userRepository){
+                $query= $request->request->get('form')['query'];
+
+                if($query){
+                    $user = $userRepository->find($query);
+                }
+            
+                return $this->render('commercial/result.html.twig', [
+                    'user'=> $user
+              ]);
+                // dump($request->request->get('form')['query']); die;
+            }
+
+
+
+
+            // public function search(EntityManagerInterface $entityManager):Response{
+           
+            //     $search = new User();
+            //     $name= $search->getFirstName();
+            //     $searchuser = $this->entityManager->getRepository(User::class)->findBy(['firstName' =>$name]);
+            //     return $this->render('commercial/index.html.twig', [
+            //           'search'=> $searchuser->createView()
+            //     ]);
+            // }
             // public function search(Request $request):Response{
 
             //     $search = new User();

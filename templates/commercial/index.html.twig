@@ -8,13 +8,10 @@
 
     <a href="{{ path('app_logout') }}" type="button" class="btn btn-dark">logOut</a>
 
+        {{ render(controller(
+            'App\\Controller\\HomeController::search'
+        )) }}
 
-
-    <div class="input-group">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-               aria-describedby="search-addon" />
-        <button type="button" class="btn btn-outline-primary" onclick="commercial()">search</button>
-    </div>
 
 
 
